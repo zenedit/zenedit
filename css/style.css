@@ -73,7 +73,7 @@ header img {
     color: #f0f0f0;
     padding: 1.618rem;
     margin-top: 1.618rem;
-    width: 100%;
+    width: 90%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -167,4 +167,3 @@ footer {
     font-size: 0.9rem;
     padding: 1.618rem 0;
 }
-
