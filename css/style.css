@@ -1,0 +1,166 @@
+/* Basic Reset */
+body, html, main {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    color: #fff;
+}
+
+/* Full body styling */
+body {
+    background-color: #252525;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Main container styling */
+main {
+    width: 61.8vw;  /* Adjusting width according to the golden ratio */
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.618rem 0; /* Top and bottom padding based on the golden ratio */
+}
+
+/* Paragraph styling */
+p {
+    font-size: 18px; /* Base font size */
+    line-height: 29px; /* Line height set to golden ratio, approx 1.618 of font size */
+    margin-top: 1em;
+    margin-bottom: 1em;
+    color: #ccc; /* Lighter text color for readability */
+    text-align: justify; /* Justifies the text for a cleaner look */
+    padding: 0 1.618rem; /* Horizontal padding */
+}
+
+/* Header with logo */
+header {
+    margin-bottom: 1.618rem; /* Maintain golden ratio below logo */
+}
+header h1, header img {
+    margin: 0 auto; /* Center content */
+    text-align: center;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    white-space: nowrap; /* added line to ensure the text doesn't flow into multiple lines */
+}
+
+header img {
+    width: 16.18%;  /* Logo width adjusted to the golden ratio */
+    height: auto;
+}
+
+/* Code container styling */
+.code-container {
+    background: #1a1a1a;
+    color: #f0f0f0;
+    padding: 1.618rem;
+    margin-top: 1.618rem;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.copybutton {
+    background-color: #ffda00;
+    color: #252525;
+    border: none;
+    padding: 0.809rem 1.618rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-left: auto; /* Position button to the right */
+}
+.copybutton:hover {
+    background-color: #ffd700;
+}
+
+/* Code block styling */
+pre, code {
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: calc(100vh / 1.618); /* Height of the pre element based on golden ratio */
+    margin: 0;
+}
+
+/* Ordered List (ol) and List Item (li) Styling */
+ol {
+    counter-reset: item; /* Resets the counter for the list */
+    padding-left: 0; /* Removes default padding */
+    margin: 1.618rem 0; /* Vertical spacing based on the golden ratio */
+}
+
+li {
+    counter-increment: item; /* Increments the counter */
+    font-size: 18px; /* Maintains readable font size */
+    line-height: 1.618em; /* Line height based on the golden ratio */
+    margin-bottom: 0.809rem; /* Half of the golden ratio for spacing between items */
+    position: relative; /* Needed for custom numbering */
+    padding-left: 2.618rem; /* Space for numbers, more than double the golden ratio for clear distinction */
+    text-align: left; /* Ensures text alignment is consistent */
+    list-style-type: none; /* Removes default list styling */
+}
+
+li::before {
+    content: counter(item) "."; /* Adds a number before each list item */
+    position: absolute;
+    left: 0; /* Positions number at the start of the padding */
+    color: #ffda00; /* Golden color for numbers to stand out */
+    font-weight: bold; /* Makes the numbers bold */
+}
+
+/* Responsive adjustments for better mobile display */
+@media (max-width: 600px) {
+    main {
+        width: 95vw; /* Increase width on smaller screens for better usability */
+    }
+    header img {
+        width: 50%; /* Increase logo size on smaller screens */
+    }
+    li {
+        padding-left: 2rem; /* Adjust padding for smaller screens */
+    }
+}
+
+/* Downloads navigation styling */
+nav.links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1.618rem;
+}
+
+nav.links a {
+    color: #ffda00;
+    text-decoration: none;
+    padding: 0.809rem 1.618rem;
+    background-color: rgba(255, 218, 0, 0.1);
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+nav.links a:hover {
+    background-color: rgba(255, 218, 0, 0.3);
+}
+
+/* Footer styling */
+footer {
+    margin-top: 1.618rem; /* Adjusted to golden ratio */
+    font-size: 0.9rem;
+    padding: 1.618rem 0;
+}
+
