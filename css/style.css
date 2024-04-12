@@ -37,6 +37,10 @@ p {
     padding: 0 1.618rem; 
 }
 
+.important {
+color: #ff3300;
+}
+
 a:link, a:visited {
     color: #EDBC00;
 }
