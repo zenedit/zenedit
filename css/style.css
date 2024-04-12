@@ -18,31 +18,31 @@ body {
 
 /* Main container styling */
 main {
-    width: 61.8vw;  /* Adjusting width according to the golden ratio */
+    width: 61.8vw;  
     max-width: 1200px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1.618rem 0; /* Top and bottom padding based on the golden ratio */
+    padding: 1.618rem 0; 
 }
 
 /* Paragraph styling */
 p {
-    font-size: 18px; /* Base font size */
-    line-height: 29px; /* Line height set to golden ratio, approx 1.618 of font size */
+    font-size: 18px; 
+    line-height: 29px; 
     margin-top: 1em;
     margin-bottom: 1em;
-    color: #ccc; /* Lighter text color for readability */
-    text-align: justify; /* Justifies the text for a cleaner look */
-    padding: 0 1.618rem; /* Horizontal padding */
+    color: #ccc; 
+    text-align: justify; 
+    padding: 0 1.618rem; 
 }
 
 /* Header with logo */
 header {
-    margin-bottom: 1.618rem; /* Maintain golden ratio below logo */
+    margin-bottom: 1.618rem; 
 }
 header h1, header img {
-    margin: 0 auto; /* Center content */
+    margin: 0 auto; 
     text-align: center;
 }
 
@@ -55,11 +55,11 @@ header h1, header img {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
-    white-space: nowrap; /* added line to ensure the text doesn't flow into multiple lines */
+    white-space: nowrap; 
 }
 
 header img {
-    width: 16.18%;  /* Logo width adjusted to the golden ratio */
+    width: 16.18%;  
     height: auto;
 }
 
@@ -80,7 +80,7 @@ header img {
     padding: 0.809rem 1.618rem;
     cursor: pointer;
     transition: background 0.3s ease;
-    margin-left: auto; /* Position button to the right */
+    margin-left: auto; 
 }
 .copybutton:hover {
     background-color: #ffd700;
@@ -94,46 +94,46 @@ pre, code {
     word-wrap: break-word;
     overflow-x: auto;
     overflow-y: auto;
-    max-height: calc(100vh / 1.618); /* Height of the pre element based on golden ratio */
+    max-height: calc(100vh / 1.618); 
     margin: 0;
 }
 
 /* Ordered List (ol) and List Item (li) Styling */
 ol {
-    counter-reset: item; /* Resets the counter for the list */
-    padding-left: 0; /* Removes default padding */
-    margin: 1.618rem 0; /* Vertical spacing based on the golden ratio */
+    counter-reset: item; 
+    padding-left: 0; 
+    margin: 1.618rem 0; 
 }
 
 li {
-    counter-increment: item; /* Increments the counter */
-    font-size: 18px; /* Maintains readable font size */
-    line-height: 1.618em; /* Line height based on the golden ratio */
-    margin-bottom: 0.809rem; /* Half of the golden ratio for spacing between items */
-    position: relative; /* Needed for custom numbering */
-    padding-left: 2.618rem; /* Space for numbers, more than double the golden ratio for clear distinction */
-    text-align: left; /* Ensures text alignment is consistent */
-    list-style-type: none; /* Removes default list styling */
+    counter-increment: item; 
+    font-size: 18px; 
+    line-height: 1.618em; 
+    margin-bottom: 0.809rem; 
+    position: relative; 
+    padding-left: 2.618rem; 
+    text-align: left; 
+    list-style-type: none; 
 }
 
 li::before {
-    content: counter(item) "."; /* Adds a number before each list item */
+    content: counter(item) "."; 
     position: absolute;
-    left: 0; /* Positions number at the start of the padding */
-    color: #ffda00; /* Golden color for numbers to stand out */
-    font-weight: bold; /* Makes the numbers bold */
+    left: 0; 
+    color: #ffda00; 
+    font-weight: bold; 
 }
 
 /* Responsive adjustments for better mobile display */
 @media (max-width: 600px) {
     main {
-        width: 95vw; /* Increase width on smaller screens for better usability */
+        width: 95vw; 
     }
     header img {
-        width: 50%; /* Increase logo size on smaller screens */
+        width: 50%; 
     }
     li {
-        padding-left: 2rem; /* Adjust padding for smaller screens */
+        padding-left: 2rem; 
     }
 }
 
@@ -159,7 +159,7 @@ nav.links a:hover {
 
 /* Footer styling */
 footer {
-    margin-top: 1.618rem; /* Adjusted to golden ratio */
+    margin-top: 1.618rem; 
     font-size: 0.9rem;
     padding: 1.618rem 0;
 }
