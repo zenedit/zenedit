@@ -37,6 +37,10 @@ p {
     padding: 0 1.618rem; 
 }
 
+a:link, a:visited {
+    color: #EDBC00;
+}
+
 /* Header with logo */
 header {
     margin-bottom: 1.618rem; 
