@@ -42,12 +42,15 @@ function copyToClipboard() {
 <p>ZenEdit is a streamlined and minimalist text editor designed to provide a distraction-free writing environment. It is built exclusively using native Python 3 libraries, ensuring simplicity and ease of use without the need for additional dependencies. This editor focuses on basic functionality that supports clear and focused writing tasks, making it an ideal choice for users who prefer an uncomplicated and efficient text editing experience.</p>
     <h2>ZenEdit Installation Guide</h2>
     <p>You can download the pre-compiled zip files for both Linux and Windows versions. However, if you prefer a more hands-on approach, you can follow the detailed step-by-step instructions below to execute the Python code and run ZenEdit on your computer.</p>
-<p class="important">IMPORTANT: The Windows executable (.exe) file was created using PyInstaller. Some antivirus programs may mistakenly flag this file as a virus. If this occurs, you can safely address this issue by navigating to the 'Threat Management' section of your antivirus software. Here, you should add the file to the 'Quarantine' or 'Exceptions' list, ensuring the program is not blocked. Rest assured, the executable does not contain any viruses. Once you have made this adjustment, you should be able to run the program without any issues.</p>
+    <p class="important">IMPORTANT: The Windows executable (.exe) file was created using PyInstaller. Some antivirus programs may mistakenly flag this file as a virus. If this occurs, you can safely address this issue by navigating to the 'Threat Management' section of your antivirus software. Here, you should add the file to the 'Quarantine' or 'Exceptions' list, ensuring the program is not blocked. Rest assured, the executable does not contain any viruses. Once you have made this adjustment, you should be able to run the program without any issues.</p>
 
     <h2>On Windows:</h2>
     <ol>
         <li><strong>Install Python:</strong>
-            <p>Download Python from the <a href="https://www.python.org/" target="_blank">official website</a>.</p>
+            <p>Download Python from the <a href="https://www.python.org/" target="_blank">official website</a>. Make sure to select the option to "Add Python to PATH" during installation.</p>
+        </li>
+        <li><strong>Install Tkinter:</strong>
+            <p>Tkinter is usually included with the standard Python installation. To check if Tkinter is installed, run <code>python -m tkinter</code> from the Command Prompt, which should open a small window demonstrating that Tkinter is working.</p>
         </li>
         <li><strong>Create the Script:</strong>
             <p>Open Notepad.</p>
@@ -64,7 +67,10 @@ function copyToClipboard() {
     <h2>On Linux:</h2>
     <ol>
         <li><strong>Install Python:</strong>
-            <p>Download and install Python from the <a href="https://www.python.org/" target="_blank">official website</a>.</p>
+            <p>Python is usually pre-installed on many Linux distributions. To confirm, you can run <code>python3 --version</code> in the Terminal. If it's not installed, you can install it via your distribution's package manager.</p>
+        </li>
+        <li><strong>Install Tkinter:</strong>
+            <p>For Debian-based systems, run <code>sudo apt-get install python3-tk</code> in the Terminal to install Tkinter.</p>
         </li>
         <li><strong>Create the Script:</strong>
             <p>Open the Terminal.</p>
@@ -75,7 +81,7 @@ function copyToClipboard() {
         </li>
         <li><strong>Run the Script:</strong>
             <p>In the Terminal, ensure you are in the directory containing <code>ZenEdit.py</code>.</p>
-            <p>Run the command: <code>python ZenEdit.py</code>.</p>
+            <p>Run the command: <code>python3 ZenEdit.py</code> to execute the script using Python 3.</p>
         </li>
     </ol>
         <div class="code-container">
