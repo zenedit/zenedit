@@ -35,6 +35,7 @@ class ZenEdit:
         }
         self.config = self.default_config.copy()
         self.fullScreenState = False
+        self.effect_tw_active = False
         self.root_bg_image_visible = False
         self.load_config()
         self.setup_ui()
@@ -182,12 +183,14 @@ class ZenEdit:
         self.view_menu.add_command(label="Set Padding", command=self.set_padding)
         self.view_menu.add_separator()
         self.view_menu.add_command(label="Toggle Text Blink", command=self.toggle_text_blink)
+        self.view_menu.add_command(label="Toggle Effect Typing Writing", command=self.toggle_typing_effect)
         self.view_menu.add_command(label="Toggle Menu Visibility (F10)", command=self.toggle_menu_view)
         self.view_menu.add_command(label="Toggle Border Visibility (F2)", command=self.toggle_border_visibility)
         self.view_menu.add_command(label="Toggle Mouse Cursor Visibility", command=self.toggle_mouse_cursor_visibility)
         self.view_menu.add_command(label="Toggle Caret Cursor Visibility", command=self.toggle_caret_cursor_visibility)
         self.view_menu.add_command(label="Toggle Caret Cursor Blink", command=self.toggle_caret_cursor_blink)
         self.view_menu.add_command(label="Set Caret Cursor Blink Speed", command=self.set_caret_cursor_blink_speed)
+
         
         self.format_menu.add_command(label="Change Font", command=self.change_font)
         self.format_menu.add_command(label="Change Font Size", command=self.change_font_size)
@@ -491,6 +494,83 @@ class ZenEdit:
             self.save_config()
         else:
             messagebox.showerror("Invalid Padding", "Padding must be a non-negative integer.")
+    
+    def toggle_text_blink(self, event=None):
+        if hasattr(self, 'is_blinking') and self.is_blinking:
+            self.is_blinking = False
+            if hasattr(self, 'blink_id'):
+                self.root.after_cancel(self.blink_id)
+                del self.blink_id
+            self.text_area.tag_remove("blink", "1.0", "end")
+        else:
+            blink_speed = simpledialog.askinteger("Blink Speed", "Enter blink speed in milliseconds:", initialvalue=500)
+            if blink_speed is not None:
+                self.blink_speed = blink_speed
+                self.is_blinking = True
+                self.text_area.tag_configure("blink", foreground=self.text_area.cget("foreground"), background=self.text_area.cget("background"))
+                self.start_blinking()
+
+    def start_blinking(self):
+        if not self.is_blinking:
+            return
+        if "blink" not in self.text_area.tag_names():
+            self.text_area.tag_configure("blink", foreground=self.text_area.cget("foreground"), background=self.text_area.cget("background"))
+        
+        current_fg_color = self.text_area.tag_cget("blink", "foreground")
+        bg_color = self.text_area.cget("background")
+        new_color = bg_color if current_fg_color == self.text_area.cget("foreground") else self.text_area.cget("foreground")
+
+        self.text_area.tag_configure("blink", foreground=new_color)
+        self.text_area.tag_add("blink", "1.0", "end")
+
+        if self.is_blinking:
+            self.blink_id = self.root.after(self.blink_speed, self.start_blinking)
+
+    def toggle_typing_effect(self):
+        if not self.effect_tw_active:
+            speed = simpledialog.askinteger("Typing Speed",
+                                            "Enter the speed of typing in milliseconds per character:",
+                                            minvalue=1, maxvalue=1000)
+            if speed is not None:
+                self.start_typing_effect(speed)
+                self.typing_effect_menu_label = "Stop Typing Effect"
+                self.view_menu.entryconfig(0, label=self.typing_effect_menu_label)
+        else:
+            self.interrupt_typing_effect()
+
+    def start_typing_effect(self, speed):
+        content = self.text_area.get("1.0", "end-1c")
+        self.text_area.tag_configure("invisible", foreground=self.text_area.cget("bg"))
+        self.text_area.tag_add("invisible", "1.0", "end")
+        self.effect_tw_active = True
+
+        def reveal_character(index):
+            if index < len(content) and self.effect_tw_active:
+                pos = f"1.0 + {index} chars"
+                self.text_area.tag_remove("invisible", pos)
+                self.text_area.mark_set("insert", f"{pos} + 1c")
+                self.text_area.see("insert")
+                self.root.after(speed, reveal_character, index + 1)
+            else:
+                self.text_area.tag_remove("invisible", "1.0", "end")
+                self.effect_tw_active = False
+                self.typing_effect_menu_label = "Start Typing Effect"
+                self.view_menu.entryconfig(0, label=self.typing_effect_menu_label)
+
+        reveal_character(0)
+
+    def interrupt_typing_effect(self):
+        self.effect_tw_active = False
+        self.text_area.tag_remove("invisible", "1.0", "end")
+        self.typing_effect_menu_label = "Start Typing Effect"
+        self.view_menu.entryconfig(0, label=self.typing_effect_menu_label)
+
+    def toggle_menu_view(self):
+        if not self.fullScreenState:
+            if self.root.cget('menu'):
+                self.root.config(menu='') 
+            else:
+                self.root.config(menu=self.menu)
                 
     def toggle_border_visibility(self):
         current_thickness = self.text_area.cget("highlightthickness")
@@ -782,41 +862,6 @@ class ZenEdit:
     def show_about(self):
         messagebox.showinfo("About ZenEdit", "ZenEdit v1.0\nA simple text editor built with Tkinter. by Seehrum")
 
-    def toggle_text_blink(self, event=None):
-        if hasattr(self, 'is_blinking') and self.is_blinking:
-            self.is_blinking = False
-            if hasattr(self, 'blink_id'):
-                self.root.after_cancel(self.blink_id)
-                del self.blink_id
-            self.text_area.tag_remove("blink", "1.0", "end")
-        else:
-            blink_speed = simpledialog.askinteger("Blink Speed", "Enter blink speed in milliseconds:", initialvalue=500)
-            if blink_speed is not None:
-                self.blink_speed = blink_speed
-                self.is_blinking = True
-                self.start_blinking()
-
-    def start_blinking(self):
-        if not self.is_blinking:
-            return
-        bg_color = self.config["bg_color"]
-        fg_color = self.config["fg_color"]
-
-        current_fg_color = self.text_area.tag_cget("blink", "foreground")
-        new_color = fg_color if current_fg_color == bg_color else bg_color
-
-        self.text_area.tag_configure("blink", foreground=new_color, background=bg_color)
-        self.text_area.tag_add("blink", "1.0", "end")
-
-        self.blink_id = self.root.after(self.blink_speed, self.start_blinking)
-
-    def toggle_menu_view(self):
-        if not self.fullScreenState:
-            if self.root.cget('menu'):
-                self.root.config(menu='') 
-            else:
-                self.root.config(menu=self.menu)
-
     def save_config(self):
         with open(self.config_file, 'w') as file:
             json.dump(self.config, file, indent=4)
@@ -826,4 +871,3 @@ if __name__ == "__main__":
     editor = ZenEdit(root)
     root.protocol("WM_DELETE_WINDOW", editor.quit)
     root.mainloop()
-            
