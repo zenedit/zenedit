@@ -590,14 +590,12 @@ class ZenEdit:
             if blink_speed is not None:
                 self.blink_speed = blink_speed
                 self.is_blinking = True
-                # Ensure the tag is properly configured before starting blinking
                 self.text_area.tag_configure("blink", foreground=self.text_area.cget("foreground"), background=self.text_area.cget("background"))
                 self.start_blinking()
 
     def start_blinking(self):
         if not self.is_blinking:
             return
-        # Ensure the 'blink' tag is configured if not already
         if "blink" not in self.text_area.tag_names():
             self.text_area.tag_configure("blink", foreground=self.text_area.cget("foreground"), background=self.text_area.cget("background"))
         
@@ -612,22 +610,18 @@ class ZenEdit:
             self.blink_id = self.root.after(self.blink_speed, self.start_blinking)
 
     def toggle_typing_effect(self):
-        # Check if the effect is currently active
         if not self.effect_tw_active:
-            # Prompt for speed and start the effect
             speed = simpledialog.askinteger("Typing Speed",
                                             "Enter the speed of typing in milliseconds per character:",
                                             minvalue=1, maxvalue=1000)
             if speed is not None:
                 self.start_typing_effect(speed)
                 self.typing_effect_menu_label = "Stop Typing Effect"
-                self.view_menu.entryconfig(0, label=self.typing_effect_menu_label)  # Update the menu item
+                self.view_menu.entryconfig(0, label=self.typing_effect_menu_label)
         else:
-            # Stop the effect
             self.interrupt_typing_effect()
 
     def start_typing_effect(self, speed):
-        # Start the typewriting effect
         content = self.text_area.get("1.0", "end-1c")
         self.text_area.tag_configure("invisible", foreground=self.text_area.cget("bg"))
         self.text_area.tag_add("invisible", "1.0", "end")
@@ -644,12 +638,11 @@ class ZenEdit:
                 self.text_area.tag_remove("invisible", "1.0", "end")
                 self.effect_tw_active = False
                 self.typing_effect_menu_label = "Start Typing Effect"
-                self.view_menu.entryconfig(0, label=self.typing_effect_menu_label)  # Reset the menu item
+                self.view_menu.entryconfig(0, label=self.typing_effect_menu_label)
 
         reveal_character(0)
 
     def interrupt_typing_effect(self):
-        # Stop the typewriting effect
         self.effect_tw_active = False
         self.text_area.tag_remove("invisible", "1.0", "end")
         self.typing_effect_menu_label = "Start Typing Effect"
